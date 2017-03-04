@@ -46,7 +46,7 @@ def calculateWeight(dataA, dataB):
     for name in dataLarger["name"]:
         if name in dataSmaller["name"]:
             difference = math.fabs(dataLarger["confidence"] - dataSmaller["confidence"])
-            subweights.append(difference)
+            subweights.append(1 - difference)
         else:
             subweights.append(0)
     total_tag_weight = sum(subweights) / float(len(subweights))
