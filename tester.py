@@ -13,17 +13,17 @@ def main():
         print("===========================")
         #print(scraper.getTagImage(link))
         #print(json.dumps((json.loads(scraper.getTagImage(link).decode('utf-8'))), indent = 4, sort_keys = True))
-        print(format_json(scraper.getTagImage(link)))
+        print(format_json(scraper.get_tag_image(link)))
 
         print("\n\n\n\n")
 
         print("This is the celebrity data")
         print("===========================")
-        print(format_json(scraper.getCelebrity(link)))
+        print(format_json(scraper.get_celebrity(link)))
         print("\n\n\n\n")
 
         print("This is the OCR data")
         print("===========================")
-        print(format_json(scraper.getOCR(link)))
+        print(format_json(scraper.get_ocr(link)))
 
 main()

@@ -2,7 +2,7 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64
 # Store keys in a separate file because don't push them to github
 import config
 
-def getTagImage(imageURL):
+def get_tag_image(imageURL):
     body = {"url" : imageURL}
     headers = {
         # Request headers
@@ -25,7 +25,7 @@ def getTagImage(imageURL):
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
     return data
 
-def getCelebrity(imageURL):
+def get_celebrity(imageURL):
     body = {"url" : imageURL}
     headers = {
         # Request headers
@@ -48,7 +48,7 @@ def getCelebrity(imageURL):
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
     return data
 
-def getOCR(imageURL):
+def get_ocr(imageURL):
     body = {"url" : imageURL}
     headers = {
         # Request headers
