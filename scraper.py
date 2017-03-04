@@ -16,7 +16,7 @@ def getTagImage(imageURL):
 
     try:
         conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
-        conn.request("POST", "/vision/v1.0/tag?%s" % params, "{}".format(body), headers)
+        conn.request("POST", "/vision/v1.0/tag?{}".format(params), "{}".format(body), headers)
         response = conn.getresponse()
         data = response.read()
         conn.close()
@@ -39,7 +39,7 @@ def getCelebrity(imageURL):
 
     try:
         conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
-        conn.request("POST", "/vision/v1.0/models/{model}/analyze?%s" % params, "{}".format(body), headers)
+        conn.request("POST", "/vision/v1.0/models/{}/analyze?{}".format("celebrities", params), "{}".format(body), headers)
         response = conn.getresponse()
         data = response.read()
         conn.close()
@@ -64,7 +64,7 @@ def getOCR(imageURL):
 
     try:
         conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
-        conn.request("POST", "/vision/v1.0/ocr?%s" % params, "{}".format(body), headers)
+        conn.request("POST", "/vision/v1.0/ocr?{}".format(params), "{}".format(body), headers)
         response = conn.getresponse()
         data = response.read()
         conn.close()
