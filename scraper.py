@@ -1,4 +1,4 @@
-import http.client, urllib.request, urllib.parse, urllib.error, base64
+import http.client, urllib.request, urllib.parse, urllib.error, base64, json
 # Store keys in a separate file because don't push them to github
 import config
 
@@ -23,6 +23,8 @@ def get_tag_image(imageURL):
     except Exception as e:
         data = "HTTPSConnection failed"
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
+    data = data.decode('utf-8')
+    data = json.loads(data)
     return data
 
 def get_celebrity(imageURL):
@@ -46,6 +48,8 @@ def get_celebrity(imageURL):
     except Exception as e:
         data = "HTTPSConnection failed"
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
+    data = data.decode('utf-8')
+    data = json.loads(data)
     return data
 
 def get_ocr(imageURL):
@@ -71,4 +75,10 @@ def get_ocr(imageURL):
     except Exception as e:
         data = "HTTPSConnection failed"
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
+    data = data.decode('utf-8')
+    data = json.loads(data)
     return data
+
+def format_json(js):
+    # return json.dumps((json.loads(js.decode('utf-8'))), indent = 4, sort_keys = True)
+    return json.dumps(js, indent=4)
