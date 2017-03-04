@@ -1,11 +1,12 @@
 import scraper
 import json
 import requests
-from urllib import urlparse
+from urllib.parse import urlparse
 
 # getTagImage(), getCelebrity(), getOCR()
 
 def main():
+    """
     links = ["http://img.wennermedia.com/social/trumpfamily-0a0680e3-ea21-45c5-a9ad-c51fec63dffa.jpg", "https://blogs-images.forbes.com/brianrashid/files/2015/09/NYC-FORBES-1940x970.jpg"]
     for link in links:
         print("This is the tag image data")
@@ -25,13 +26,15 @@ def main():
         # print("===========================")
         # print(format_json(scraper.get_ocr(link)))
 
+    """
+
     r = requests.get("http://www.reddit.com/.json")
     r.text
     data = r.json()
 
     for value in data['data']['children']:
-        print("Title: ", value['data']['title'])
-        #if urlparse(value['data']['url'])[5]
-        print("\t", "url: ", value['data']['url'])
+        if urlparse(value['data']['url'])[2][-4:] == ".jpg" or urlparse(value['data']['url'])[2][-4:] == ".png":
+            print("Title: ", value['data']['title'])
+            print("\t", "url: ", value['data']['url'])
 
 main()
