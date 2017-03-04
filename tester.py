@@ -1,5 +1,7 @@
 import scraper
 import json
+import requests
+from urllib import urlparse
 
 # getTagImage(), getCelebrity(), getOCR()
 
@@ -22,5 +24,14 @@ def main():
         # print("This is the OCR data")
         # print("===========================")
         # print(format_json(scraper.get_ocr(link)))
+
+    r = requests.get("http://www.reddit.com/.json")
+    r.text
+    data = r.json()
+
+    for value in data['data']['children']:
+        print("Title: ", value['data']['title'])
+        #if urlparse(value['data']['url'])[5]
+        print("\t", "url: ", value['data']['url'])
 
 main()
