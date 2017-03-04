@@ -1,10 +1,10 @@
 class Vertex:
     def __init__(self, node):
-        self.id = node
+        self.data = node
         self.adjacent = {}
 
     def __str__(self):
-        return str(self.id) + ' adjacent: ' + str([x.id for x in self.adjacent])
+        return str(self.data) + ' adjacent: ' + str([x.data for x in self.adjacent])
 
     def add_neighbor(self, neighbor, weight=0):
         self.adjacent[neighbor] = weight
@@ -12,8 +12,8 @@ class Vertex:
     def get_connections(self):
         return self.adjacent.keys()
 
-    def get_id(self):
-        return self.id
+    def get_data(self):
+        return self.data
 
     def get_weight(self, neighbor):
         return self.adjacent[neighbor]
@@ -73,9 +73,9 @@ class Graph:
 #
 #     for v in g:
 #         for w in v.get_connections():
-#             vid = v.get_id()
-#             wid = w.get_id()
-#             print ('( %s , %s, %3d)'  % ( vid, wid, v.get_weight(w)))
+#             v_data = v.get_data()
+#             w_data = w.get_data()
+#             print ('( %s , %s, %3d)'  % ( v_data, w_data, v.get_weight(w)))
 #
 #     for v in g:
-#         print ('g.vert_dict[%s]=%s' %(v.get_id(), g.vert_dict[v.get_id()]))
+#         print ('g.vert_dict[%s]=%s' %(v.get_data(), g.vert_dict[v.get_data()]))
