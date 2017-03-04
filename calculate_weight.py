@@ -49,4 +49,5 @@ def calculateWeight(dataA, dataB):
             subweights.append(difference)
         else:
             subweights.append(0)
-    total_tag_weight= sum(subweights) / float(len(subweights))
+    total_tag_weight = sum(subweights) / float(len(subweights))
+    return total_tag_weight
