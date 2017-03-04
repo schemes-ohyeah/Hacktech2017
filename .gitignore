@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 config.py
 /.idea
-=======
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -91,4 +90,3 @@ ENV/
 
 # Rope project settings
 .ropeproject
->>>>>>> 58507ddae34a680293d8a7b540295687094f5851
