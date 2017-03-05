@@ -63,15 +63,23 @@ def calculate_tag_weight(dataA, dataB):
     """
         FIX FOR EFFICIENCY LATER
     """
-    for big_tag in dataLarger["tags"]:
-        # if tag["name"] in dataSmaller["tags"]:
-        for small_tag in dataSmaller["tags"]:
-            if big_tag["name"] == small_tag["name"]:
-                difference = math.fabs(big_tag["confidence"] - small_tag["confidence"])
-                subweights.append(1 - difference)
-                break
-        else:
-            subweights.append(0)
+    print("Printing dataLarger")
+    print(dataLarger)
+    print("Printing dataSmaller")
+    print(dataSmaller)
+    try:
+        for big_tag in dataLarger["tags"]:
+            # if tag["name"] in dataSmaller["tags"]:
+            for small_tag in dataSmaller["tags"]:
+                if big_tag["name"] == small_tag["name"]:
+                    difference = math.fabs(big_tag["confidence"] - small_tag["confidence"])
+                    subweights.append(1 - difference)
+                    break
+                else:
+                    subweights.append(0)
+    except KeyError:
+        subweights.append(0)
+        print("Missing key tags")
     total_tag_weight = sum(subweights) / len(subweights)
     return total_tag_weight
 
@@ -92,14 +100,18 @@ def calculate_celeb_weight(dataA, dataB):
         dataLarger = dataB
         dataSmaller = dataA
     subweights = []
-    for big_tag in dataLarger["result"]["celebrities"]:
-        for small_tag in dataSmaller["result"]["celebrities"]:
-            if big_tag["result"]["celebrities"]["name"] == small_tag["result"]["celebrities"]["name"]:
-                difference = math.fabs(big_tag["result"]["celebrities"]["confidence"] - small_tag["reseult"]["celebrities"]["confidence"])
-                subweights.append(1 - difference)
-                break
-            else:
-                subweights.append(0)
+    try:
+        for big_tag in dataLarger["result"]["celebrities"]:
+            for small_tag in dataSmaller["result"]["celebrities"]:
+                if big_tag["result"]["celebrities"]["name"] == small_tag["result"]["celebrities"]["name"]:
+                    difference = math.fabs(big_tag["result"]["celebrities"]["confidence"] - small_tag["reseult"]["celebrities"]["confidence"])
+                    subweights.append(1 - difference)
+                    break
+                else:
+                    subweights.append(0)
+    except KeyError:
+        subweights.append(0)
+        print("Missing key tags")
     total_celeb_weight = sum(subweights) / len(subweights)
     return total_celeb_weight
 
@@ -171,7 +183,8 @@ def calculate_total_image_weight(tagA, tagB, celebA, celebB):
     :return: float weight from 0 to 1
     """
     # Play with CELEB_CONST value to adjust output
-    CELEB_CONST = 0.65
+    CELEB_CONST = 0
     PLEB_CONST = 1 - CELEB_CONST
-    return CELEB_CONST * calculate_celeb_weight(celebA, celebB) \
-           + PLEB_CONST * calculate_tag_weight(tagA, tagB)
+    return CELEB_CONST * calculate_celeb_weight(celebA["celeb"], celebB["celeb"]) + PLEB_CONST * calculate_tag_weight(tagA["tag"], tagB["tag"])
+    # return CELEB_CONST * calculate_celeb_weight(celebA, celebB) \
+    #        + PLEB_CONST * calculate_tag_weight(tagA, tagB)

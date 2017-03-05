@@ -67,8 +67,10 @@ def main():
                 vert_data = metadata[vertex]
                 othertex_data = metadata[othertex]
                 cost = weight.calculate_total_image_weight(
-                    vert_data["tag"], othertex_data["tag"],
-                    vert_data["celeb"], othertex_data["celeb"]
+                    vert_data, othertex_data,
+                    vert_data, othertex_data
+                    # vert_data["tag"], othertex_data["tag"],
+                    # vert_data["celeb"], othertex_data["celeb"]
                 )
                 # if cost > 0:
                 imageGraph.add_edge(vertex, othertex, cost)
@@ -82,10 +84,11 @@ def main():
     for vertex in wordGraph:
         for othertex in wordGraph:
             # If there is not already an edge, add it
-            if not imageGraph.has_edge(vertex, othertex):
+            if not wordGraph.has_edge(vertex, othertex):
                 vert_data = metadata[vertex]
                 othertex_data = metadata[othertex]
                 cost = weight.calculate_word_weight(
+                    # vert_data, othertex_data
                     vert_data["comments"], othertex_data["comments"]
                 )
                 # if cost > 0:
@@ -104,6 +107,6 @@ def printWeights(graph):
         neighbors = vert.get_connections()
         for neighbor in neighbors:
             print("{} -> {}, weight {}".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
-
+            #print(graph.get_vertex(vertex).get_data() + " to " + neighbor.get_data() + " weight is " + graph.get_vertex(vertex).get_weight(neighbor))
 
 main()
