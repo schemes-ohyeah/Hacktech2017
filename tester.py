@@ -26,18 +26,31 @@ def main():
         # print("This is the OCR data")
         # print("===========================")
         # print(format_json(scraper.get_ocr(link)))
-
-
-
-    r = requests.get("http://www.reddit.com/.json")
-    r.text
-    data = r.json()
-
-    for value in data['data']['children']:
-        if urlparse(value['data']['url'])[2][-4:] == ".jpg" or urlparse(value['data']['url'])[2][-4:] == ".png":
-            print("Title: ", value['data']['title'])
-            print("\t", "url: ", value['data']['url'])
     """
+
+    subreddits = ["http://www.reddit.com/r/all/top.json?limit=50", "http://www.reddit.com/r/funny/top.json?limit=50", "http://www.reddit.com/r/pics/top.json?limit=50"]
+    count = 0
+
+    images = set()
+
+    for subreddit in subreddits:
+        r = requests.get(subreddit)
+        r.text
+        data = r.json()
+
+
+        for value in data['data']['children']:
+            if urlparse(value['data']['url'])[2][-4:] == ".jpg" or urlparse(value['data']['url'])[2][-4:] == ".png":
+                # print("Title: ", value['data']['title'])
+                # print("\t", "url: ", value['data']['url'])
+                images.add(value['data']['url'])
+
+    for url in images:
+        print(url)
+        count = count + 1
+
+    print(count)
+
     data_a = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1-1.jpg")
     data_b = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/7-1.jpg")
     print(weight.calculateTagWeight(data_a, data_b))
