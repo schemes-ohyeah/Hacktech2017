@@ -67,5 +67,4 @@ def printWeights(graph):
         for neighbor in neighbors:
             print(graph.get_vertex(vertex).get_data() + " to " + neighbor.get_data() + " weight is " + graph.get_vertex(vertex).get_weight(neighbor))
 
-
 main()
