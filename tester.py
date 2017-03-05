@@ -32,22 +32,37 @@ def print_comments(thread):
         print(json.dumps(data_2, indent=4))
 
 def get_urls():
+    LIMIT=20
     url_count = 0
-    subreddits = ["all", "funny", "pics"]
+    subreddits = ["earthporn"]#, "aww", ""]
     images = {}
-
+    """
+    try:
+        file = open("backup_links.txt", "r+", encoding="utf-8")
+    except IOError:
+        print("File not found.")
+    """
     reddit = praw.Reddit('bot1')
 
     for subreddit in subreddits:
-        for thread in reddit.subreddit(subreddit).top(limit=10):
+        for thread in reddit.subreddit(subreddit).top(limit=LIMIT):
             if thread.url[-4:] == ".jpg" or thread.url[-4:] == ".png":
                 comms = []
                 submission = reddit.submission(thread.id)
                 submission.comment_sort = 'top'
                 submission.comments.replace_more(limit=0) # makes sure it has a body (Not the "more" button)
+                print("Thread ", url_count + 1, " loaded")
+
+                # file.write("#\n" + thread.url)
+
                 for comment in submission.comments.list():
                     comms.append(comment.body)
+                    # file.write("$" +
+                    #            comment.body)
+                print("Comments added")
                 images[thread.url] = comms
+                print("Image added")
+
                 url_count = url_count + 1
             elif urlparse(thread.url).netloc == "imgur.com":
                 url = "{parsed_url.scheme}://i.{parsed_url.netloc}/{parsed_url.path}.png".format(parsed_url=urlparse(thread.url))
@@ -55,9 +70,18 @@ def get_urls():
                 submission = reddit.submission(thread.id)
                 submission.comment_sort = 'top'
                 submission.comments.replace_more(limit=0)  # makes sure it has a body (Not the "more" button)
+                print("Thread ", url_count + 1, " loaded")
+
+                # file.write("#\n" + thread.url)
+
                 for comment in submission.comments.list():
                     comms.append(comment.body)
+                    # file.write("$" +
+                    #            comment.body)
+                print("Comments added")
                 images[url] = comms
+                print("Image added")
+
                 url_count = url_count + 1
     """PRINTS
     for key in images:
@@ -65,10 +89,10 @@ def get_urls():
         for com in images[key]:
             print(com)
     """
-    return images
-    #print(url_count)
-
+    print(url_count)
     # file.close()
+    return images
+
 
 def main():
     get_urls()
