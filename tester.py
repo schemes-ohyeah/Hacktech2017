@@ -39,7 +39,7 @@ def get_urls():
     reddit = praw.Reddit('bot1')
 
     for subreddit in subreddits:
-        for thread in reddit.subreddit(subreddit).top(limit=50):
+        for thread in reddit.subreddit(subreddit).top(limit=10):
             if thread.url[-4:] == ".jpg" or thread.url[-4:] == ".png":
                 comms = []
                 submission = reddit.submission(thread.id)
@@ -59,12 +59,13 @@ def get_urls():
                     comms.append(comment.body)
                 images[url] = comms
                 url_count = url_count + 1
-
+    """PRINTS
     for key in images:
         print(key)
         for com in images[key]:
             print(com)
-
+    """
+    return images
     #print(url_count)
 
     # file.close()
