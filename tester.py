@@ -40,5 +40,5 @@ def main():
     """
     data_a = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1-1.jpg")
     data_b = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/7-1.jpg")
-    print(calculate_weight.calculateWeight(data_a, data_b))
+    print(calculate_weight.calculateTagWeight(data_a, data_b))
 main()
