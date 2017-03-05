@@ -1,6 +1,9 @@
 import scraper
 import json
+import config
 import requests
+import requests.auth
+import praw
 import weight
 from urllib.parse import urlparse
 import time
@@ -23,7 +26,7 @@ def print_comments(thread):
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-def main():
+def get_urls():
     """
     links = ["http://img.wennermedia.com/social/trumpfamily-0a0680e3-ea21-45c5-a9ad-c51fec63dffa.jpg", "https://blogs-images.forbes.com/brianrashid/files/2015/09/NYC-FORBES-1940x970.jpg"]
     for link in links:
@@ -43,55 +46,59 @@ def main():
         # print("This is the OCR data")
         # print("===========================")
         # print(format_json(scraper.get_ocr(link)))
-    """
 
-    count = 0
-    subreddits = ["http://www.reddit.com/r/all/top.json?limit=50", "http://www.reddit.com/r/funny/top.json?limit=50",
-                  "http://www.reddit.com/r/pics/top.json?limit=50"]
-    images = set()
-
-    try:
+            try:
         file = open("backup_links.txt", "r+")
     except IOError:
         print("File not found.")
     else:
         for subreddit in subreddits:
             print("Loading images...")
-            try:
-                req = requests.get(subreddit)
-                req.text
-                data = req.json()
 
-                for child in data['data']['children']:
-                    time.sleep(3)
-                    if urlparse(child['data']['url'])[2][-4:] == ".jpg" or urlparse(child['data']['url'])[2][-4:] == ".png":
-                        images.add(child['data']['url'] + "\n")
-                        # print("Title: ", child['data']['title'])
-                        # print("\t", "url: ", child['data']['url'])
-                    url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
-                    print_comments(url)
-            except:
-                print("Something occurred. Loading backup links...")
-                images.clear()
-                for url in file:
-                    images.add(url)
-                break
+            req = requests.get(subreddit)
+            req.text
+            data = req.json()
 
-            else:
-                pass
+            for child in data['data']['children']:
+                time.sleep(0)
+                if urlparse(child['data']['url'])[2][-4:] == ".jpg" or urlparse(child['data']['url'])[2][
+                                                                       -4:] == ".png":
+                    images.add(child['data']['url'] + "\n")
+                    # print("Title: ", child['data']['title'])
+                    # print("\t", "url: ", child['data']['url'])
+                    # url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
+                    # print_comments(url)
 
-    for url in images:
+                            for url in images:
        print(url)
-       count = count + 1
+       url_count = url_count + 1
+    """
 
-    print(count)
+    url_count = 0
+    subreddits = ["all", "funny", "pics"]
+    images = {}
 
-    # data_a = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1-1.jpg")
-    # data_b = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/7-1.jpg")
-    # print(calculate_weight.calculateTagWeight(data_a, data_b))
+    reddit = praw.Reddit('bot1')
 
-    file.close()
+    for subreddit in subreddits:
+        for thread in reddit.subreddit(subreddit).top(limit=50):
+            if thread.url[-4:] == ".jpg" or thread.url[-4:] == ".png":
+                images[thread.url] = ""
+                url_count = url_count + 1
+            elif urlparse(thread.url).netloc == "imgur.com":
+                url = "{parsed_url.scheme}://i.{parsed_url.netloc}/{parsed_url.path}.png".format(parsed_url=urlparse(thread.url))
+                images[url] = ""
+                url_count = url_count + 1
 
+    for keys in images:
+        print(keys)
+
+    #print(url_count)
+
+    # file.close()
+
+def main():
+    get_urls()
 
 
 main()
