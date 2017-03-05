@@ -83,7 +83,8 @@ def get_weights(graph):
 
         neighbor_list = []
         for neighbor in neighbors:
-            neighbor_list.append("{} -> {}, weight {}".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
+            info = (neighbor.get_data(), vert.get_weight(neighbor))
+            neighbor_list.append(info)
         graph_data[vert] = neighbor_list
 
     return graph_data
