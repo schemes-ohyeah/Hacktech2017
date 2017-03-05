@@ -185,6 +185,16 @@ def calculate_total_image_weight(tagA, tagB, celebA, celebB):
     # Play with CELEB_CONST value to adjust output
     CELEB_CONST = 0
     PLEB_CONST = 1 - CELEB_CONST
-    return CELEB_CONST * calculate_celeb_weight(celebA["celeb"], celebB["celeb"]) + PLEB_CONST * calculate_tag_weight(tagA["tag"], tagB["tag"])
+    try:
+        celeb = CELEB_CONST * calculate_celeb_weight(celebA["celeb"], celebB["celeb'"])
+    except Exception:
+        celeb = 0
+        print("Error with celeb")
+    try:
+        pleb = PLEB_CONST * calculate_tag_weight(tagA["tag"], tagB["tag"])
+    except Exception:
+        pleb = 0
+        print("Error with pleb")
+    return celeb + pleb
     # return CELEB_CONST * calculate_celeb_weight(celebA, celebB) \
     #        + PLEB_CONST * calculate_tag_weight(tagA, tagB)

@@ -95,18 +95,19 @@ def main():
                 wordGraph.add_edge(vertex, othertex, cost)
 
     print("Weights for imageGraph")
-    printWeights(imageGraph)
+    printWeights(imageGraph, "imageOut.txt")
     print("\n\n===================\n\n")
     print("Weights for wordGraph")
-    printWeights(wordGraph)
+    printWeights(wordGraph, "wordOut.txt")
 
 
-def printWeights(graph):
-    for vertex in graph:
-        vert = graph.get_vertex(vertex)
-        neighbors = vert.get_connections()
-        for neighbor in neighbors:
-            print("{} -> {}, weight {}".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
-            #print(graph.get_vertex(vertex).get_data() + " to " + neighbor.get_data() + " weight is " + graph.get_vertex(vertex).get_weight(neighbor))
-
+def printWeights(graph, fileOut):
+    with open(fileOut, "w") as output:
+        for vertex in graph:
+            vert = graph.get_vertex(vertex)
+            neighbors = vert.get_connections()
+            for neighbor in neighbors:
+                print("{} -> {}, weight {}".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
+                #print(graph.get_vertex(vertex).get_data() + " to " + neighbor.get_data() + " weight is " + graph.get_vertex(vertex).get_weight(neighbor))
+                output.write("{} -> {}, weight {}\n".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
 main()

@@ -1,0 +1,9 @@
+a -> a, weight 0.6666666666666666
+a -> b, weight 0.11000000000000001
+a -> c, weight 0.0
+b -> a, weight 0.11000000000000001
+b -> b, weight 0.5
+b -> c, weight 0.0
+c -> a, weight 0.0
+c -> b, weight 0.0
+c -> c, weight 0.6666666666666666
