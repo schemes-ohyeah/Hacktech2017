@@ -97,7 +97,7 @@ def get_urls():
     reddit = praw.Reddit('bot1')
 
     for subreddit in subreddits:
-        for thread in reddit.subreddit(subreddit).top(limit=50):
+        for thread in reddit.subreddit(subreddit).top(limit=10):
             if thread.url[-4:] == ".jpg" or thread.url[-4:] == ".png":
                 images[thread.url] = ""
                 url_count = url_count + 1
@@ -106,9 +106,7 @@ def get_urls():
                 images[url] = ""
                 url_count = url_count + 1
 
-    for keys in images:
-        print(keys)
-
+    return images
     #print(url_count)
 
     # file.close()
