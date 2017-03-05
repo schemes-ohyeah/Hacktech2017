@@ -9,19 +9,24 @@ import time
 def print_comments(thread):
     COMMENTS_SECTION = 1
     print("Thread:", "", thread)
-    req = requests.get(thread)
-    req.text
-    data_2 = req.json()
-    comments = []
     try:
+        print("Before requests")
+        req = requests.get(thread)
+        req.text
+        data_2 = req.json()
+        comments = []
+        print("after requests")
         for value in data_2[COMMENTS_SECTION]['data']['children']:
             if value['kind'] == "t1":
                 comments.append(value['data']['body'])
-
+        print("Filled array")
         for val in comments: # This is where it prints stuff
             print(val)
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print(e)
+        print("Error in print_comments")
+        print("json from print_comments")
+        print(json.dumps(data_2, indent=4))
 
 def main():
     """
@@ -68,10 +73,13 @@ def main():
                         images.add(child['data']['url'] + "\n")
                         # print("Title: ", child['data']['title'])
                         # print("\t", "url: ", child['data']['url'])
-                    url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
-                    print_comments(url)
+                        url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
+                        print_comments(url)
+                        print("still in if")
             except:
                 print("Something occurred. Loading backup links...")
+                print("json from main:")
+                print(json.dumps(data, indent = 4))
                 images.clear()
                 for url in file:
                     images.add(url)
