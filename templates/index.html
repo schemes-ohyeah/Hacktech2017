@@ -84,6 +84,14 @@
         from the corresponding thread from which we got the image. We
         analyze the text to see if there are similarities among threads with images.
     </p>
+
+  {% for x in image_data.keys() %}
+    <p>
+      <b>{{ x }}:{{image_data[x]}}</b>
+        <br/>
+
+    </p>
+  {% endfor %}
     <p>Is there a correlation between what Microsoft's Vision API can see as
     a similar image and what Reddit conversation can see as a similar image?</p>
     <p>This type of information and correlation can be used to see if there

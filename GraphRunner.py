@@ -2,7 +2,7 @@ from Vertex import Graph
 import scraper, weight, tester
 
 
-def main():
+def get_graphs():
     # Fill this from Spring / Michael code - getting from Reddit
     # { "url" : [comments] }
     content = tester.get_urls()
@@ -57,11 +57,13 @@ def main():
                 # if cost > 0:
                 wordGraph.add_edge(vertex, othertex, cost)
 
-    print("Weights for imageGraph")
-    printWeights(imageGraph)
-    print("\n\n===================\n\n")
-    print("Weights for wordGraph")
-    printWeights(wordGraph)
+    return imageGraph, wordGraph
+
+    # print("Weights for imageGraph")
+    # printWeights(imageGraph)
+    # print("\n\n===================\n\n")
+    # print("Weights for wordGraph")
+    # printWeights(wordGraph)
 
 
 def printWeights(graph):
@@ -72,4 +74,15 @@ def printWeights(graph):
             print("{} -> {}, weight {}".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
             #print(graph.get_vertex(vertex).get_data() + " to " + neighbor.get_data() + " weight is " + graph.get_vertex(vertex).get_weight(neighbor))
 
-main()
+def get_weights(graph):
+    graph_data = {}
+    for vertex in graph:
+        vert = graph.get_vertex(vertex)
+        neighbors = vert.get_connections()
+
+        neighbor_list = []
+        for neighbor in neighbors:
+            neighbor_list.append("{} -> {}, weight {}".format(vert.get_data(), neighbor.get_data(), vert.get_weight(neighbor)))
+        graph_data[vert] = neighbor_list
+
+    return graph_data
