@@ -1,4 +1,4 @@
-import math
+import math, string
 
 def print_tag_confidence(data):
     """
@@ -113,23 +113,24 @@ def calculate_word_weight(dataA, dataB):
     dictionaryB = {}
     for comment in dataA:
         comment = comment.lower()
+        translator = str.maketrans('', '', string.punctuation)
+        comment = comment.translate(translator)
         wordList = comment.split(" ")
         for word in wordList:
-            if word in dictionaryA:
+            if word in dictionaryA.keys():
                 dictionaryA[word] += 1
             else:
-                dictionaryA[word] = 0
+                dictionaryA[word] = 1
     for comment in dataB:
         comment = comment.lower()
+        translator = str.maketrans('', '', string.punctuation)
+        comment = comment.translate(translator)
         wordList = comment.split(" ")
         for word in wordList:
-            if word in dictionaryB:
+            if word in dictionaryB.keys():
                 dictionaryB[word] += 1
             else:
-                dictionaryB[word] = 0
-
-    dictionaryA = sorted(dictionaryA, key=dictionaryA.get)
-    dictionaryB = sorted(dictionaryB, key=dictionaryB.get)
+                dictionaryB[word] = 1
 
     totalA = 0
     for item in dictionaryA:
@@ -139,9 +140,9 @@ def calculate_word_weight(dataA, dataB):
         totalB += dictionaryB[item]
 
     for item in dictionaryA:
-        dictionaryA[item] = dictionaryA / totalA
+        dictionaryA[item] = dictionaryA[item] / totalA
     for item in dictionaryB:
-        dictionaryB[item] = dictionaryB / totalB
+        dictionaryB[item] = dictionaryB[item] / totalB
 
     subweights = []
     if len(dictionaryA) > len(dictionaryB):
@@ -154,7 +155,7 @@ def calculate_word_weight(dataA, dataB):
     for item in larger:
         if item in smaller:
             difference = math.fabs(larger[item] - smaller[item])
-            subweights.append(difference)
+            subweights.append(1 - difference)
         else:
             subweights.append(0)
     return sum(subweights) / len(subweights)

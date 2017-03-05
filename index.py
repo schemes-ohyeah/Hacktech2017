@@ -1,8 +1,8 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return '''
+    return render_template("article.html")
 
-    '''
+app.run()
