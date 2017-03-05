@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
     <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: #555;
+        }
         body {
             font-family: sans-serif;
             line-height: 1.5;
@@ -36,12 +45,34 @@
             width: 250px;
             padding: 25px
         }
+        li {
+            list-style-type: square;
+        }
+        ul li:nth-child(odd) b {
+            color: #00a1f1;
+        }
+        ul li:nth-child(even) b {
+            color: #ED001C;
+        }
+        .logos {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .logos img {
+            max-width: 300px;
+            padding: 2rem;
+        }
     </style>
     <meta charset="UTF-8">
-    <title>Microsoft Vision vs Reddit Conversation</title>
+    <title>Microsoft Computer Vision vs Reddit Conversation</title>
 </head>
 <body>
-    <h1>Microsoft API Vision vs Reddit Conversation Interpretation</h1>
+    <h1>Microsoft Computer Vision vs. Reddit Conversation</h1>
+    <div class="logos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_(2012).svg/2000px-Microsoft_logo_(2012).svg.png" alt="Microsoft">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Reddit_logo_and_wordmark.svg/1280px-Reddit_logo_and_wordmark.svg.png" alt="Reddit">
+    </div>
     <p>
         This program scrapes various high scoring images from Reddit and
         feeds them into Microsoft's Vision API. We take various factors from
@@ -66,56 +97,38 @@
         </div>
         <div>
             <h2>imgur.com/thing.png</h2>
-            <h3>Average variance to neighbors: 0.5</h3>
+            <h3>Average variance to neighbors: 0.23</h3>
             <ul>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
+                <li>
+                    <b>Microsoft Similarity </b> to <a href="http://placekitten.com/g/200/250" target="_blank">here</a>: 0.78
+                </li>
+                <li>
+                    <b>Reddit Similarity</b> to <a href="http://placekitten.com/g/100/200" target="_blank">here</a>: 0.69
+                </li>
+                <li>
+                    <b>Microsoft Similarity </b> to <a href="http://placekitten.com/g/200/250" target="_blank">here</a>: 0.72
+                </li>
+                <li>
+                    <b>Reddit Similarity</b> to <a href="http://placekitten.com/g/100/200" target="_blank">here</a>: 0.88
+                </li>
             </ul>
         </div>
     </article>
     <hr>
     <article>
         <div>
-            <img src="http://placekitten.com/g/250/250" alt="placeholder">
+            <img src="http://placekitten.com/g/300/250" alt="placeholder">
         </div>
         <div>
             <h2>imgur.com/thing.png</h2>
             <h3>Average variance to neighbors: 0.5</h3>
             <ul>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-            </ul>
-        </div>
-    </article>
-    <hr>
-    <article>
-        <div>
-            <img src="http://placekitten.com/g/250/250" alt="placeholder">
-        </div>
-        <div>
-            <h2>imgur.com/thing.png</h2>
-            <h3>Average variance to neighbors: 0.5</h3>
-            <ul>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
-                <li>0.2 variance to imgur.com/another.png</li>
-                <li>0.4 variance to imgur.com/thing2.png</li>
+                <li>
+                    <b>Microsoft Similarity </b> to <a href="http://placekitten.com/g/200/250" target="_blank">here</a>: 0.78
+                </li>
+                <li>
+                    <b>Reddit Similarity</b> to <a href="http://placekitten.com/g/100/200" target="_blank">here</a>: 0.69
+                </li>
             </ul>
         </div>
     </article>
