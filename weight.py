@@ -38,7 +38,7 @@ def is_celebrity(data):
     # data = scraper.get_celebrity(link)
     return len(data["result"]["celebrities"]) != 0
 
-def calculateTagWeight(dataA, dataB):
+def calculate_tag_weight(dataA, dataB):
     """
     For each nametag intersection, get a subaverage (1 - difference)
     If no intersection, set subaverage to 0
@@ -73,7 +73,7 @@ def calculateTagWeight(dataA, dataB):
     total_tag_weight = sum(subweights) / len(subweights)
     return total_tag_weight
 
-def calculateCelebWeight(dataA, dataB):
+def calculate_celeb_weight(dataA, dataB):
     """
     Calculates celebrity similarity between two images
     :param dataA: first data set to be worked off of
@@ -102,7 +102,7 @@ def calculateCelebWeight(dataA, dataB):
     return total_celeb_weight
 
 
-def calculateWordWeight(dataA, dataB):
+def calculate_word_weight(dataA, dataB):
     """
     Takes threads and gathers all their comments together to see similarities
     :param dataA: a list of comment strings
@@ -158,3 +158,16 @@ def calculateWordWeight(dataA, dataB):
         else:
             subweights.append(0)
     return sum(subweights) / len(subweights)
+
+def calculate_total_image_weight(dataA, dataB):
+    """
+    Calculates a total weight, we are assuming celebs are important
+    but can adjust the const. rate when factored in
+    :param dataA: First data set to work off of
+    :param dataB: Second data set to work off of
+    :return: float weight from 0 to 1
+    """
+    # Play with CELEB_CONST value to adjust output
+    CELEB_CONST = 0.65
+    PLEB_CONST = 1 - CELEB_CONST
+    return CELEB_CONST * calculate_celeb_weight(dataA, dataB) + PLEB_CONST * calculate_tag_weight(dataA, dataB)

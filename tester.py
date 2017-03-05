@@ -6,6 +6,22 @@ from urllib.parse import urlparse
 import time
 
 # getTagImage(), getCelebrity(), getOCR()
+def print_comments(thread):
+    COMMENTS_SECTION = 1
+    print("Thread:", "", thread)
+    req = requests.get(thread)
+    req.text
+    data_2 = req.json()
+    comments = []
+    try:
+        for value in data_2[COMMENTS_SECTION]['data']['children']:
+            if value['kind'] == "t1":
+                comments.append(value['data']['body'])
+
+        for val in comments: # This is where it prints stuff
+            print(val)
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
 def main():
     """
@@ -52,15 +68,15 @@ def main():
                         images.add(child['data']['url'] + "\n")
                         # print("Title: ", child['data']['title'])
                         # print("\t", "url: ", child['data']['url'])
-
                     url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
                     print_comments(url)
             except:
                 print("Something occurred. Loading backup links...")
-                images.clear();
+                images.clear()
                 for url in file:
                     images.add(url)
-                break;
+                break
+
             else:
                 pass
 
@@ -76,21 +92,6 @@ def main():
 
     file.close()
 
-def print_comments(thread):
-    COMMENTS_SECTION = 1
-    print("Thread:", "", thread)
-    s = requests.get(thread)
-    s.text
-    data_2 = s.json()
-    comments = []
-    try:
-        for value in data_2[COMMENTS_SECTION]['data']['children']:
-            if value['kind'] == "t1":
-                comments.append(value['data']['body'])
 
-        for val in comments: # This is where it prints stuff
-            print(val)
-    except Exception as e:
-        print("Reddit doesn't like us")
 
 main()
