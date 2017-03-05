@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: #555;
+        }
+        body {
+            font-family: sans-serif;
+            line-height: 1.5;
+            background: #eee;
+            color: #222;
+            max-width: 960px;
+            margin: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        footer {
+            font-family: sans-serif;
+            line-height: 1.5;
+            background: #222;
+            color: #eee;
+            text-align: center;
+            margin: 0;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 3rem 0;
+        }
+        article {
+            height: 300px;
+            overflow-y: scroll;
+        }
+        article img {
+            float: left;
+            height: 250px;
+            width: 250px;
+            padding: 25px
+        }
+        li {
+            list-style-type: square;
+        }
+        ul li:nth-child(odd) b {
+            color: #00a1f1;
+        }
+        ul li:nth-child(even) b {
+            color: #ED001C;
+        }
+        .logos {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .logos img {
+            max-width: 300px;
+            padding: 2rem;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Microsoft Computer Vision vs Reddit Conversation</title>
+</head>
+<body>
+    <h1>Microsoft Computer Vision vs. Reddit Conversation</h1>
+    <div class="logos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_(2012).svg/2000px-Microsoft_logo_(2012).svg.png" alt="Microsoft">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Reddit_logo_and_wordmark.svg/1280px-Reddit_logo_and_wordmark.svg.png" alt="Reddit">
+    </div>
+    <p>
+        This program scrapes various high scoring images from Reddit and
+        feeds them into Microsoft's Vision API. We take various factors from
+        this in order to determine a similarity rating between images. These
+        images are all placed into a weighted graph.
+    </p>
+    <p>
+        At the same time, we will take the Reddit conversation scrape comments
+        from the corresponding thread from which we got the image. We
+        analyze the text to see if there are similarities among threads with images.
+    </p>
+    <p>Is there a correlation between what Microsoft's Vision API can see as
+    a similar image and what Reddit conversation can see as a similar image?</p>
+    <p>This type of information and correlation can be used to see if there
+    is more to an image than what a machine can currently see. Images
+    contain stories. At this time, no machine learning has been implemented.
+    Using ML with this data can allow us to create "interpreted" understanding
+    of an image rather than just what is explicitly in the image.</p>
+    <article>
+        <div>
+            <img src="http://placekitten.com/g/250/250" alt="placeholder">
+        </div>
+        <div>
+            <h2>imgur.com/thing.png</h2>
+            <h3>Average variance to neighbors: 0.23</h3>
+            <ul>
+                <li>
+                    <b>Microsoft Similarity </b> to <a href="http://placekitten.com/g/200/250" target="_blank">here</a>: 0.78
+                </li>
+                <li>
+                    <b>Reddit Similarity</b> to <a href="http://placekitten.com/g/100/200" target="_blank">here</a>: 0.69
+                </li>
+                <li>
+                    <b>Microsoft Similarity </b> to <a href="http://placekitten.com/g/200/250" target="_blank">here</a>: 0.72
+                </li>
+                <li>
+                    <b>Reddit Similarity</b> to <a href="http://placekitten.com/g/100/200" target="_blank">here</a>: 0.88
+                </li>
+            </ul>
+        </div>
+    </article>
+    <hr>
+    <article>
+        <div>
+            <img src="http://placekitten.com/g/300/250" alt="placeholder">
+        </div>
+        <div>
+            <h2>imgur.com/thing.png</h2>
+            <h3>Average variance to neighbors: 0.5</h3>
+            <ul>
+                <li>
+                    <b>Microsoft Similarity </b> to <a href="http://placekitten.com/g/200/250" target="_blank">here</a>: 0.78
+                </li>
+                <li>
+                    <b>Reddit Similarity</b> to <a href="http://placekitten.com/g/100/200" target="_blank">here</a>: 0.69
+                </li>
+            </ul>
+        </div>
+    </article>
+</body>
+<footer>
+    Created by: Michael Duong, Spring Nguyen, Kevin Tran, Peter Yang<br>
+    &copy; 2017 Made at Caltech's Hacktech
+</footer>
+</html>
