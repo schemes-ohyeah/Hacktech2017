@@ -57,6 +57,7 @@ def get_graphs():
                 # if cost > 0:
                 wordGraph.add_edge(vertex, othertex, cost)
 
+
     return imageGraph, wordGraph
 
     # print("Weights for imageGraph")
@@ -86,3 +87,4 @@ def get_weights(graph):
         graph_data[vert] = neighbor_list
 
     return graph_data
+
