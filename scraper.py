@@ -25,6 +25,7 @@ def get_tag_image(imageURL):
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
     data = data.decode('utf-8')
     data = json.loads(data)
+    print("Tag image received successfully")
     return data
 
 def get_celebrity(imageURL):
@@ -50,6 +51,7 @@ def get_celebrity(imageURL):
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
     data = data.decode('utf-8')
     data = json.loads(data)
+    print("Celeb info received successfully")
     return data
 
 def get_ocr(imageURL):

@@ -36,6 +36,8 @@ def is_celebrity(data):
     :return: boolean is celeb or not
     """
     # data = scraper.get_celebrity(link)
+    print(data)
+
     return len(data["result"]["celebrities"]) != 0
 
 def calculate_tag_weight(dataA, dataB):

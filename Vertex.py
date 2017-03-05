@@ -27,13 +27,17 @@ class Graph:
         self.num_vertices = 0
 
     def __iter__(self):
-        return iter(self.vert_dict.values())
+        return iter(self.vert_dict.keys())
 
     def add_vertex(self, node):
         self.num_vertices = self.num_vertices + 1
         new_vertex = Vertex(node)
         self.vert_dict[node] = new_vertex
         return new_vertex
+
+    def has_edge(self, v1, v2):
+        return v1 in self.vert_dict and v2 in self.vert_dict and \
+                self.vert_dict[v1] in self.vert_dict[v2]
 
     def get_vertex(self, n):
         if n in self.vert_dict:
