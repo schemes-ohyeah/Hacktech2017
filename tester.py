@@ -1,7 +1,7 @@
 import scraper
 import json
 import requests
-import calculate_weight
+import weight
 from urllib.parse import urlparse
 
 # getTagImage(), getCelebrity(), getOCR()
@@ -40,5 +40,5 @@ def main():
     """
     data_a = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/1-1.jpg")
     data_b = scraper.get_tag_image("https://portalstoragewuprod2.azureedge.net/vision/Analysis/7-1.jpg")
-    print(calculate_weight.calculateTagWeight(data_a, data_b))
+    print(weight.calculateTagWeight(data_a, data_b))
 main()
