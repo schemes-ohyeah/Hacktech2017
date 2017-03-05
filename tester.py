@@ -46,12 +46,15 @@ def main():
                 req.text
                 data = req.json()
 
-                for value in data['data']['children']:
+                for child in data['data']['children']:
                     time.sleep(3)
-                    if urlparse(value['data']['url'])[2][-4:] == ".jpg" or urlparse(value['data']['url'])[2][-4:] == ".png":
-                        images.add(value['data']['url'] + "\n")
-                        # print("Title: ", value['data']['title'])
-                        # print("\t", "url: ", value['data']['url'])
+                    if urlparse(child['data']['url'])[2][-4:] == ".jpg" or urlparse(child['data']['url'])[2][-4:] == ".png":
+                        images.add(child['data']['url'] + "\n")
+                        # print("Title: ", child['data']['title'])
+                        # print("\t", "url: ", child['data']['url'])
+
+                    url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
+                    print_comments(url)
             except:
                 print("Something occurred. Loading backup links...")
                 images.clear();
@@ -72,5 +75,22 @@ def main():
     # print(calculate_weight.calculateTagWeight(data_a, data_b))
 
     file.close()
+
+def print_comments(thread):
+    COMMENTS_SECTION = 1
+    print("Thread:", "", thread)
+    s = requests.get(thread)
+    s.text
+    data_2 = s.json()
+    comments = []
+    try:
+        for value in data_2[COMMENTS_SECTION]['data']['children']:
+            if value['kind'] == "t1":
+                comments.append(value['data']['body'])
+
+        for val in comments: # This is where it prints stuff
+            print(val)
+    except Exception as e:
+        print("Reddit doesn't like us")
 
 main()
