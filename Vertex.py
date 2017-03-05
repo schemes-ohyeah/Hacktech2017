@@ -6,6 +6,9 @@ class Vertex:
     def __str__(self):
         return str(self.data) + ' adjacent: ' + str([x.data for x in self.adjacent])
 
+    def __contains__(self, key):
+        return key in self.adjacent
+
     def add_neighbor(self, neighbor, weight=0):
         self.adjacent[neighbor] = weight
 

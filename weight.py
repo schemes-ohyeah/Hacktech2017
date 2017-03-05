@@ -159,7 +159,7 @@ def calculate_word_weight(dataA, dataB):
             subweights.append(0)
     return sum(subweights) / len(subweights)
 
-def calculate_total_image_weight(dataA, dataB):
+def calculate_total_image_weight(tagA, tagB, celebA, celebB):
     """
     Calculates a total weight, we are assuming celebs are important
     but can adjust the const. rate when factored in
@@ -170,4 +170,5 @@ def calculate_total_image_weight(dataA, dataB):
     # Play with CELEB_CONST value to adjust output
     CELEB_CONST = 0.65
     PLEB_CONST = 1 - CELEB_CONST
-    return CELEB_CONST * calculate_celeb_weight(dataA, dataB) + PLEB_CONST * calculate_tag_weight(dataA, dataB)
+    return CELEB_CONST * calculate_celeb_weight(celebA, celebB) \
+           + PLEB_CONST * calculate_tag_weight(tagA, tagB)

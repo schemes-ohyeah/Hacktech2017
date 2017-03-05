@@ -12,19 +12,24 @@ import time
 def print_comments(thread):
     COMMENTS_SECTION = 1
     print("Thread:", "", thread)
-    req = requests.get(thread)
-    req.text
-    data_2 = req.json()
-    comments = []
     try:
+        print("Before requests")
+        req = requests.get(thread)
+        req.text
+        data_2 = req.json()
+        comments = []
+        print("after requests")
         for value in data_2[COMMENTS_SECTION]['data']['children']:
             if value['kind'] == "t1":
                 comments.append(value['data']['body'])
-
+        print("Filled array")
         for val in comments: # This is where it prints stuff
             print(val)
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+        print(e)
+        print("Error in print_comments")
+        print("json from print_comments")
+        print(json.dumps(data_2, indent=4))
 
 def get_urls():
     """
@@ -54,22 +59,33 @@ def get_urls():
     else:
         for subreddit in subreddits:
             print("Loading images...")
+            try:
+                req = requests.get(subreddit)
+                req.text
+                data = req.json()
 
-            req = requests.get(subreddit)
-            req.text
-            data = req.json()
+                for child in data['data']['children']:
+                    time.sleep(3)
+                    if urlparse(child['data']['url'])[2][-4:] == ".jpg" or urlparse(child['data']['url'])[2][-4:] == ".png":
+                        images.add(child['data']['url'] + "\n")
+                        # print("Title: ", child['data']['title'])
+                        # print("\t", "url: ", child['data']['url'])
+                        url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
+                        print_comments(url)
+                        print("still in if")
+            except:
+                print("Something occurred. Loading backup links...")
+                print("json from main:")
+                print(json.dumps(data, indent = 4))
+                images.clear()
+                for url in file:
+                    images.add(url)
+                break
 
-            for child in data['data']['children']:
-                time.sleep(0)
-                if urlparse(child['data']['url'])[2][-4:] == ".jpg" or urlparse(child['data']['url'])[2][
-                                                                       -4:] == ".png":
-                    images.add(child['data']['url'] + "\n")
-                    # print("Title: ", child['data']['title'])
-                    # print("\t", "url: ", child['data']['url'])
-                    # url = "https://reddit.com" + child['data']['permalink'] + ".json?sort=top"
-                    # print_comments(url)
+            else:
+                pass
 
-                            for url in images:
+    for url in images:
        print(url)
        url_count = url_count + 1
     """
