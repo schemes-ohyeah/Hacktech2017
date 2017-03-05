@@ -1,7 +1,7 @@
 import scraper
 import json
 import requests
-import calculate_weight
+import weight
 from urllib.parse import urlparse
 import time
 
@@ -72,4 +72,5 @@ def main():
     # print(calculate_weight.calculateTagWeight(data_a, data_b))
 
     file.close()
+
 main()

@@ -1,4 +1,4 @@
-import scraper, math, Vertex
+import math
 
 def print_tag_confidence(data):
     """
@@ -101,16 +101,60 @@ def calculateCelebWeight(dataA, dataB):
     total_celeb_weight = sum(subweights) / len(subweights)
     return total_celeb_weight
 
-def calculateTotalWeight(dataA, dataB):
+
+def calculateWordWeight(dataA, dataB):
     """
-    Calculates a total weight, we are assuming celebs are important
-    but can adjust the const. rate when factored in
-    :param dataA: First data set to work off of
-    :param dataB: Second data set to work off of
+    Takes threads and gathers all their comments together to see similarities
+    :param dataA: a list of comment strings
+    :param dataB: another list of comment strings
     :return: float weight from 0 to 1
     """
-    # Play with CELEB_CONST value to adjust output
-    CELEB_CONST = 0.65
-    PLEB_CONST = 1 - CELEB_CONST
-    return CELEB_CONST * calculateCelebWeight(dataA, dataB) \
-           + PLEB_CONST * calculateTagWeight(dataA, dataB)
+    dictionaryA = {}
+    dictionaryB = {}
+    for comment in dataA:
+        comment = comment.lower()
+        wordList = comment.split(" ")
+        for word in wordList:
+            if word in dictionaryA:
+                dictionaryA[word] += 1
+            else:
+                dictionaryA[word] = 0
+    for comment in dataB:
+        comment = comment.lower()
+        wordList = comment.split(" ")
+        for word in wordList:
+            if word in dictionaryB:
+                dictionaryB[word] += 1
+            else:
+                dictionaryB[word] = 0
+
+    dictionaryA = sorted(dictionaryA, key=dictionaryA.get)
+    dictionaryB = sorted(dictionaryB, key=dictionaryB.get)
+
+    totalA = 0
+    for item in dictionaryA:
+        totalA += dictionaryA[item]
+    totalB = 0
+    for item in dictionaryB:
+        totalB += dictionaryB[item]
+
+    for item in dictionaryA:
+        dictionaryA[item] = dictionaryA / totalA
+    for item in dictionaryB:
+        dictionaryB[item] = dictionaryB / totalB
+
+    subweights = []
+    if len(dictionaryA) > len(dictionaryB):
+        larger = dictionaryA
+        smaller = dictionaryB
+    else:
+        larger = dictionaryB
+        smaller = dictionaryA
+
+    for item in larger:
+        if item in smaller:
+            difference = math.fabs(larger[item] - smaller[item])
+            subweights.append(difference)
+        else:
+            subweights.append(0)
+    return sum(subweights) / len(subweights)
