@@ -81,7 +81,7 @@ def calculateCelebWeight(dataA, dataB):
     :return: 0 if one or both images have no celebs, otherwise a normalized
         confidence based on how many matching celebs and the respective confidences
     """
-    if not is_celebrity(dataA) or not is_celebrity(dataB)
+    if not is_celebrity(dataA) or not is_celebrity(dataB):
         return 0
     if len(dataA) > len(dataB):
         dataLarger = dataA
@@ -92,7 +92,7 @@ def calculateCelebWeight(dataA, dataB):
     subweights = []
     for big_tag in dataLarger["result"]["celebrities"]:
         for small_tag in dataSmaller["result"]["celebrities"]:
-            if big_tag["result"]["celebrities"]["name"] == small_tag["result"]["celebrities"]["name"]
+            if big_tag["result"]["celebrities"]["name"] == small_tag["result"]["celebrities"]["name"]:
                 difference = math.fabs(big_tag["result"]["celebrities"]["confidence"] - small_tag["reseult"]["celebrities"]["confidence"])
                 subweights.append(1 - difference)
                 break
@@ -100,3 +100,17 @@ def calculateCelebWeight(dataA, dataB):
                 subweights.append(0)
     total_celeb_weight = sum(subweights) / len(subweights)
     return total_celeb_weight
+
+def calculateTotalWeight(dataA, dataB):
+    """
+    Calculates a total weight, we are assuming celebs are important
+    but can adjust the const. rate when factored in
+    :param dataA: First data set to work off of
+    :param dataB: Second data set to work off of
+    :return: float weight from 0 to 1
+    """
+    # Play with CELEB_CONST value to adjust output
+    CELEB_CONST = 0.65
+    PLEB_CONST = 1 - CELEB_CONST
+    return CELEB_CONST * calculateCelebWeight(dataA, dataB) \
+           + PLEB_CONST * calculateTagWeight(dataA, dataB)
