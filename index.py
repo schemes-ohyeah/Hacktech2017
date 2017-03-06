@@ -6,6 +6,15 @@ image_graph, word_graph = GraphRunner.get_graphs()
 image_data = GraphRunner.get_weights(image_graph)
 word_data = GraphRunner.get_weights(word_graph)
 
+print("image_data")
+for val in image_data.keys():
+    print("Key: ",  val)
+    print("\tValue", image_data[val])
+
+print("word_data")
+for val in word_data.keys():
+    print("Key: ",  val)
+    print("\tValue", word_data[val])
 
 @app.route("/")
 def index():

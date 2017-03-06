@@ -32,7 +32,7 @@ def print_comments(thread):
         print(json.dumps(data_2, indent=4))
 
 def get_urls():
-    LIMIT=20
+    LIMIT=5
     url_count = 0
     subreddits = ["earthporn"]#, "aww", ""]
     images = {}

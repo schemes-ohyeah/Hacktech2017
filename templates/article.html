@@ -10,16 +10,18 @@
         <div>
             <ul>
                 {% for data in image_data[image] %}
-                <li>
+                <li class="microsoft">
                     <!--Get MS neighbor(s) and their respective image url and edge weight-->
                     <b>Microsoft Similarity</b> to <a href="{{data[0]}}" target="_blank">here</a>: {{data[1]}}
                 </li>
                 {% endfor %}
-                {% for data in word_data[image] %}
-                <li>
+                {% for words in word_data.keys() %}
+                {% for data in word_data[words] %}
+                <li class="reddit">
                     <!--Get Reddit neighbor(s) and their respective image url and edge weight-->
                     <b>Reddit Similarity</b> to <a href="{{data[0]}}" target="_blank">here</a>: {{data[1]}}
                 </li>
+                {% endfor %}
                 {% endfor %}
                 <!--Repeat this as necessary-->
             </ul>
