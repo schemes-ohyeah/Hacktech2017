@@ -21,4 +21,5 @@ def index():
     # define some loop data
     return render_template("article.html", image_data = image_data, word_data = word_data)
 
-app.run(host="0.0.0.0", port=80)
+if __name__ == "__main__":
+	app.run(host="0.0.0.0", port=80)
