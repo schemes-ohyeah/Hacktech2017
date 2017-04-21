@@ -1,2 +1,2 @@
 # Hacktech2017
-Something to do with taking images from Reddit and shoving it into Microsoft Cognitive Services.
+Using Microsoft Cognitive Services API and public Reddit API, we compare cloud vision data to comment chain word clouds in order to determine a similarity value between images.
